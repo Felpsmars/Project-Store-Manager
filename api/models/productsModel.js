@@ -1,13 +1,13 @@
 const connection = require('./connection');
 
 const getAll = async () => {
-  const [rows] = await connection.execute('SELECT * FROM products');
+  const [rows] = await connection.execute('SELECT * FROM StoreManager.products');
   return rows;
 };
 
 const getByName = async (name) => {
   const [rows] = await connection.execute(
-    'SELECT * FROM products WHERE name = ?',
+    'SELECT * FROM StoreManager.products WHERE name = ?',
     [name],
   );
   return rows[0];
@@ -15,16 +15,16 @@ const getByName = async (name) => {
 
 const getById = async (id) => {
   const [rows] = await connection.execute(
-    'SELECT * FROM products WHERE id = ?',
+    'SELECT * FROM StoreManager.products WHERE id = ?',
     [id],
   );
   if (!rows.length) return null;
   return rows[0];
 };
 
-const create = async ({ name, quantity }) => {
+const create = async (name, quantity) => {
   const [rows] = await connection.execute(
-    'INSERT INTO products (name, quantity) VALUES (?, ?)',
+    'INSERT INTO StoreManager.products (name, quantity) VALUES (?, ?)',
     [name, quantity],
   );
   return {
@@ -36,7 +36,7 @@ const create = async ({ name, quantity }) => {
 
 const update = async ({ id, name, quantity }) => {
   await connection.execute(
-    'UPDATE products SET name = ?, quantity = ? WHERE id = ?',
+    'UPDATE StoreManager.products SET name = ?, quantity = ? WHERE id = ?',
     [name, quantity, id],
   );
   return {
@@ -50,7 +50,7 @@ const remove = async (id) => {
   const product = await getById(id);
   if (!product) return null;
 
-  await connection.execute('DELETE FROM products WHERE id = ?', [id]);
+  await connection.execute('DELETE FROM StoreManager.products WHERE id = ?', [id]);
   return product;
 };
 
