@@ -4,14 +4,18 @@ const {
     createProductService,
     listProductService,
     getByIdService,
+    updateProductService,
 } = require('../services/productService');
 
-const productSchema = require('./schemas/productSchema');
+const { 
+    isValidName,
+    isValidQuantity,
+} = require('./schemas/productSchema');
 
 product.post(
     '/',
-    productSchema.isValidName,
-    productSchema.isValidQuantity,
+    isValidName,
+    isValidQuantity,
     async (req, res) => {
         try {
         const { name, quantity } = req.body;
@@ -40,7 +44,24 @@ product.get(
         const { id } = req.params;
         const productById = await getByIdService(id);
         return res.status(200).json(productById);
-    } catch (err) {
+        } catch (err) {
+        return res.status(404).json({ message: 'Product not found' });
+        }
+    },
+);
+
+product.put(
+    '/:id',
+    isValidName,
+    isValidQuantity,
+    async (req, res) => {
+        try {
+        const { id } = req.params;
+        const { name, quantity } = req.body;
+
+        const dataUpdated = await updateProductService(id, name, quantity);
+        return res.status(200).json(dataUpdated);    
+    } catch (error) {
         return res.status(404).json({ message: 'Product not found' });
     }
     },

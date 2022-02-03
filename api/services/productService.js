@@ -1,6 +1,7 @@
 const { getAll,
     getById,
     create,
+    update,
     } = require('../models/productsModel');
 
 const createProductService = async (name, quantity) => { 
@@ -29,8 +30,21 @@ const getByIdService = async (id) => {
     return productById;
 };
 
+const updateProductService = async (id, name, quantity) => {
+    const updatedProduct = await update({ id, name, quantity });
+    const allProducts = await getAll();
+  
+    const alreadyExist = allProducts.some((product) => product.name === name);
+    
+    if (!alreadyExist) throw new Error();
+    if (!updatedProduct) throw new Error();
+
+    return updatedProduct;
+};
+
 module.exports = {
     createProductService,
     listProductService,
     getByIdService,
+    updateProductService,
 };
