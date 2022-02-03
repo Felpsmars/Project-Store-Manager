@@ -48,7 +48,7 @@ const update = async ({ id, name, quantity }) => {
 
 const remove = async (id) => {
   const product = await getById(id);
-  if (!product) return null;
+  if (!product) throw new Error();
 
   await connection.execute('DELETE FROM StoreManager.products WHERE id = ?', [id]);
   return product;

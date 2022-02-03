@@ -2,6 +2,7 @@ const { getAll,
     getById,
     create,
     update,
+    remove,
     } = require('../models/productsModel');
 
 const createProductService = async (name, quantity) => { 
@@ -39,9 +40,16 @@ const updateProductService = async (id, name, quantity) => {
     return updatedProduct;
 };
 
+const removeProductService = async (id) => {
+    const deleted = await remove(id);
+    
+    return deleted;
+};
+
 module.exports = {
     createProductService,
     listProductService,
     getByIdService,
     updateProductService,
+    removeProductService,
 };

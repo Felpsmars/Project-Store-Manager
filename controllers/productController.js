@@ -5,12 +5,13 @@ const {
     listProductService,
     getByIdService,
     updateProductService,
+    removeProductService,
 } = require('../services/productService');
 
 const { 
     isValidName,
     isValidQuantity,
-} = require('./schemas/productSchema');
+} = require('../middlewares/productSchema');
 
 product.post(
     '/',
@@ -64,6 +65,18 @@ product.put(
     } catch (error) {
    return res.status(404).json({ message: 'Product not found' });
     }
+    },
+);
+
+product.delete(
+    '/:id',
+    async (req, res) => {
+        try {
+           const deleted = await removeProductService;
+           res.status(200).json(deleted);
+        } catch (error) {
+            res.status(404).json({ message: 'Product not found' });
+        }
     },
 );
 
