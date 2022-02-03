@@ -62,7 +62,7 @@ product.put(
         const dataUpdated = await updateProductService(id, name, quantity);
         return res.status(200).json(dataUpdated);    
     } catch (error) {
-        return res.status(404).json({ message: 'Product not found' });
+   return res.status(404).json({ message: 'Product not found' });
     }
     },
 );
