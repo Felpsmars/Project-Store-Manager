@@ -1,6 +1,8 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
+// tive ajuda do meu colega kauan carvalho 14b
+
 const connection = require('../../models/connection');
 const productModel = require('../../models/productsModel');
 const saleModel = require('../../models/salesModel');

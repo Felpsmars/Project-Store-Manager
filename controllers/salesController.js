@@ -6,6 +6,8 @@ const {
   updateSale,
 } = require('../services/salesService');
 
+// tive ajuda do meu colega gabriel sampaio 14b
+
 sales.post('/', 
     async (req, res) => {
   const sale = req.body;
