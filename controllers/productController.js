@@ -11,7 +11,7 @@ const {
 const { 
     isValidName,
     isValidQuantity,
-} = require('../middlewares/productSchema');
+} = require('../middlewares/product');
 
 product.post(
     '/',
