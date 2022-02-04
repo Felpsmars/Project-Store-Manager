@@ -25,7 +25,7 @@ sales.get('/',
  async (_req, res) => {
   const allSales = await getAllSales();
 
-  res.status(200).json(allSales);
+  return res.status(200).json(allSales);
 });
 
 sales.get('/:id',
@@ -36,7 +36,7 @@ sales.get('/:id',
 
   if (saleById.message) return res.status(saleById.code).json({ message: saleById.message });
 
-  res.status(200).json(saleById);
+  return res.status(200).json(saleById);
 });
 
 sales.put(
@@ -51,7 +51,7 @@ sales.put(
     return res.status(updatedSale.code).json({ message: updatedSale.message });
   }
 
-  res.status(200).json(updatedSale);
+  return res.status(200).json(updatedSale);
 },
 );
 

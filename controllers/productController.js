@@ -23,7 +23,7 @@ product.post(
 
         const newProduct = await createProductService(name, quantity);
 
-        res.status(201).json(newProduct);
+        return res.status(201).json(newProduct);
         } catch (err) {
             return res.status(409).json({ message: 'Product already exists' });
         }
@@ -74,9 +74,9 @@ product.delete(
         try {
             const { id } = req.params;
            const deleted = await removeProductService(id);
-           res.status(200).json(deleted);
+           return res.status(200).json(deleted);
         } catch (error) {
-            res.status(404).json({ message: 'Product not found' });
+            return res.status(404).json({ message: 'Product not found' });
         }
     },
 );
