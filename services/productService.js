@@ -24,7 +24,8 @@ const listProductService = async () => {
 
 const getByIdService = async (id) => {
     const productById = await getById(id);
-
+    console.log(productById);
+    console.log('test');
     if (!productById) throw new Error();
 
     return productById;

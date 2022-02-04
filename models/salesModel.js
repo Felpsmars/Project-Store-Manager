@@ -1,7 +1,5 @@
 const connection = require('./connection');
 
-// tive ajuda do meu colega gabriel sampaio 14b para montar as funções neste arquivo
-
 const create = async (sale) => {
   const [newSale] = await connection.execute(
     'INSERT INTO StoreManager.sales VALUES ()',
