@@ -1,5 +1,4 @@
 const sales = require('express').Router();
-
 const {
   createSale,
   getAllSales,
