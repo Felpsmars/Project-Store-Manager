@@ -1,4 +1,3 @@
-const sales = require('express').Router();
 const {
   createSale,
   getAllSales,
@@ -8,8 +7,7 @@ const {
 
 // tive ajuda do meu colega gabriel sampaio 14b
 
-sales.post('/', 
-    async (req, res) => {
+const createProductSale = async (req, res) => {
   const sale = req.body;
 
   const createdSale = await createSale(sale);
@@ -19,17 +17,15 @@ sales.post('/',
   }
 
   res.status(201).json(createdSale);
-});
+};
 
-sales.get('/',
- async (_req, res) => {
+const getAllSalesController = async (_req, res) => {
   const allSales = await getAllSales();
 
   return res.status(200).json(allSales);
-});
+};
 
-sales.get('/:id',
-    async (req, res) => {
+const getSaleByIdController = async (req, res) => {
   const { id } = req.params;
 
   const saleById = await getSaleById(id);
@@ -37,11 +33,9 @@ sales.get('/:id',
   if (saleById.message) return res.status(saleById.code).json({ message: saleById.message });
 
   return res.status(200).json(saleById);
-});
+};
 
-sales.put(
-    '/:id',
-    async (req, res) => {
+const updateSalesController = async (req, res) => {
   const { id } = req.params;
   const sale = req.body;
 
@@ -52,7 +46,11 @@ sales.put(
   }
 
   return res.status(200).json(updatedSale);
-},
-);
+};
 
-module.exports = sales; 
+module.exports = {
+  createProductSale,
+  getSaleByIdController,
+  updateSalesController,
+  getAllSalesController,
+}; 

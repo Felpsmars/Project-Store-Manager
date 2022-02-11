@@ -19,12 +19,6 @@ const getById = async (id) => {
     'SELECT * FROM StoreManager.products WHERE id = ?',
     [id],
   );
-  console.log(id);
-  console.log(rows);
-  console.log(id);
-  console.log(rows);
-  console.log(id);
-  console.log(rows);
   return rows[0];
 };
 
@@ -45,15 +39,6 @@ const update = async ({ id, name, quantity }) => {
     'UPDATE StoreManager.products SET name = ?, quantity = ? WHERE id = ?',
     [name, quantity, id],
   );
-  console.log('name');
-  console.log(name);
-  console.log('quantity');
-  console.log(quantity);
-  console.log('id');
-  console.log(id);
-  console.log(name);
-  console.log(quantity);
-  console.log(id);
   return {
     id,
     name,

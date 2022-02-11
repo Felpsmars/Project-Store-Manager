@@ -1,5 +1,3 @@
-const product = require('express').Router();
-
 const { 
     createProductService,
     listProductService,
@@ -8,16 +6,7 @@ const {
     removeProductService,
 } = require('../services/productService');
 
-const { 
-    isValidName,
-    isValidQuantity,
-} = require('../middlewares/product');
-
-product.post(
-    '/',
-    isValidName,
-    isValidQuantity,
-    async (req, res) => {
+const createProductController = async (req, res) => {
         try {
         const { name, quantity } = req.body;
 
@@ -27,20 +16,14 @@ product.post(
         } catch (err) {
             return res.status(409).json({ message: 'Product already exists' });
         }
-    },
-);
+    };
 
-product.get(
-    '/',
-    async (_req, res) => {
+const listAllController = async (_req, res) => {
         const allProducts = await listProductService();
         return res.status(200).json(allProducts);
-    },
-);
+    };
 
-product.get(
-    '/:id',
-    async (req, res) => {
+const getByIdController = async (req, res) => {
         try {
         const { id } = req.params;
         const productById = await getByIdService(id);
@@ -48,14 +31,9 @@ product.get(
         } catch (err) {
         return res.status(404).json({ message: 'Product not found' });
         }
-    },
-);
+};
 
-product.put(
-    '/:id',
-    isValidName,
-    isValidQuantity,
-    async (req, res) => {
+const updateProductController = async (req, res) => {
         try {
         const { id } = req.params;
         const { name, quantity } = req.body;
@@ -65,12 +43,9 @@ product.put(
     } catch (error) {
    return res.status(404).json({ message: 'Product not found' });
     }
-    },
-);
+    };
 
-product.delete(
-    '/:id',
-    async (req, res) => {
+const removeProductsController = async (req, res) => {
         try {
             const { id } = req.params;
            const deleted = await removeProductService(id);
@@ -78,7 +53,12 @@ product.delete(
         } catch (error) {
             return res.status(404).json({ message: 'Product not found' });
         }
-    },
-);
+    };
 
-module.exports = product;
+module.exports = { 
+    createProductController,
+    listAllController,
+    getByIdController,
+    updateProductController,
+    removeProductsController,
+};

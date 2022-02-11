@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const salesController = require('./controllers/salesController');
-const productController = require('./controllers/productController');
+const salesRouter = require('./router/sales');
+const productRouter = require('./router/products');
 
 app.use(bodyParser.json());
 
@@ -15,10 +15,11 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.use('/sales', salesController);
+app.use('/sales', salesRouter);
+app.use('/sales/:id', salesRouter);
 
-app.use('/products', productController);
-app.use('/products/:id', productController);
+app.use('/products', productRouter);
+app.use('/products/:id', productRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
