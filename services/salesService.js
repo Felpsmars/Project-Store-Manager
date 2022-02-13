@@ -3,6 +3,7 @@ const {
   getAll,
   getById,
   update,
+  remove,
 } = require('../models/salesModel');
 
 const {
@@ -64,9 +65,15 @@ const updateSale = async (id, sale) => {
   };
 };
 
+const removeSaleService = async (id) => {
+  const deleted = await remove(id);
+  return deleted;
+};
+
 module.exports = {
   createSale,
   getAllSales,
   getSaleById,
   updateSale,
+  removeSaleService,
 }; 

@@ -21,5 +21,8 @@ routes.get('/:id',
 
 routes.put('/:id',
     sales.updateSalesController);
+
+routes.delete('/:id',
+    sales.removeSalesController);
     
 module.exports = routes;

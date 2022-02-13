@@ -23,8 +23,6 @@ const getAll = async () => {
       INNER JOIN StoreManager.sales_products AS products ON sale_id = sales.id`,
   );
 
-  console.log(allSales);
-
   return allSales;
 };
 
@@ -47,9 +45,19 @@ const update = async (id, sale) => {
   return updatedSale;
 };
 
+const remove = async (id) => {
+  const sale = await getById(id);
+  const [execute] = await connection
+  .execute('DELETE FROM StoreManager.sales_products WHERE sale_id = ?', [id]);
+  if (execute.affectedRows === 0) throw new Error(); // tive ajuda do matheus pereira https://github.com/tryber/sd-014-b-store-manager/pull/62/commits/8e1ab949f2f368c21e665cb55173704bd82f5558
+
+  return sale;
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  remove,
 }; 

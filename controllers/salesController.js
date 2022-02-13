@@ -3,6 +3,7 @@ const {
   getAllSales,
   getSaleById,
   updateSale,
+  removeSaleService,
 } = require('../services/salesService');
 
 // tive ajuda do meu colega gabriel sampaio 14b
@@ -48,9 +49,20 @@ const updateSalesController = async (req, res) => {
   return res.status(200).json(updatedSale);
 };
 
+const removeSalesController = async (req, res) => {
+  try {
+      const { id } = req.params;
+      const deleted = await removeSaleService(id);
+     return res.status(200).json(deleted);
+  } catch (error) {
+      return res.status(404).json({ message: 'Sale not found' });
+  }
+};
+
 module.exports = {
   createProductSale,
   getSaleByIdController,
   updateSalesController,
   getAllSalesController,
+  removeSalesController,
 }; 

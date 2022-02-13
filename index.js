@@ -16,10 +16,8 @@ app.get('/', (_request, response) => {
 });
 
 app.use('/sales', salesRouter);
-app.use('/sales/:id', salesRouter);
 
 app.use('/products', productRouter);
-app.use('/products/:id', productRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
