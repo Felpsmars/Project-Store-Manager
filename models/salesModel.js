@@ -10,6 +10,11 @@ const create = async (sale) => {
       'INSERT INTO StoreManager.sales_products VALUES (?, ?, ?)',
       [newSale.insertId, productId, quantity],
     ));
+  
+  const { quantity, product_id: productId } = sale[0];
+  await connection
+        .execute(`UPDATE StoreManager.products
+        SET quantity = quantity - ? WHERE id = ?;`, [quantity, productId]);
 
   await Promise.all(insertedSale);
 
@@ -50,6 +55,10 @@ const remove = async (id) => {
   const [execute] = await connection
   .execute('DELETE FROM StoreManager.sales_products WHERE sale_id = ?', [id]);
   if (execute.affectedRows === 0) throw new Error(); // tive ajuda do matheus pereira https://github.com/tryber/sd-014-b-store-manager/pull/62/commits/8e1ab949f2f368c21e665cb55173704bd82f5558
+  
+  const { quantity, product_id: productId } = sale[0];
+  await connection.execute(`UPDATE StoreManager.products SET 
+  quantity = quantity + ? WHERE id = ?;`, [quantity, productId]);
 
   return sale;
 };
