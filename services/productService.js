@@ -9,7 +9,8 @@ const createProductService = async (name, quantity) => {
     const allProducts = await getAll();
 
     const alreadyExist = allProducts.some((product) => product.name === name);
-  
+    
+    console.log(alreadyExist);
     if (alreadyExist) throw new Error();
   
     const newProduct = create(name, quantity);
@@ -27,7 +28,7 @@ const getByIdService = async (id) => {
     
     if (!productById) throw new Error();
 
-    return productById;
+    return productById[0];
 };
 
 const updateProductService = async (id, name, quantity) => {
