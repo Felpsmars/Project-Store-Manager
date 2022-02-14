@@ -47,6 +47,7 @@ const update = async (id, sale) => {
     'UPDATE StoreManager.sales_products SET product_id= ?, quantity= ? WHERE sale_id= ?',
     [sale[0].product_id, sale[0].quantity, id],
   );
+  
   return updatedSale;
 };
 
