@@ -1,263 +1,272 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-// tive ajuda do meu colega kauan carvalho 14b
-
 const connection = require('../../models/connection');
-const productModel = require('../../models/productsModel');
-const saleModel = require('../../models/salesModel');
+const productsModel = require('../../models/productsModel');
+const salesModel = require('../../models/salesModel');
 
-describe("Testa o arquivo ProductModel", () => {
+describe("Testa a camada model para os produtos", () => {
+    describe("Testa a função de inserir novos produtos", () => {
+        afterEach(async () => {
+            connection.execute.restore();
+        });
 
-  describe("função getAll", () => {
-    before(async () => {
-      const response =   [
-        [{
-          "id": 1,
-          "name": "produto A",
-          "quantity": 10
-        },
-        {
-          "id": 2,
-          "name": "produto B",
-          "quantity": 20
-        }],
-        []
-      ];
-      sinon.stub(connection, 'execute').resolves(response);
-    })
+        const product = {
+            id: 1,
+            name: "product_name",
+            quantity: 10
+        };
 
-    after(async () => {
-      connection.execute.restore();
-    })
+        it("Cria novo produto com sucesso", async () => {
+            const execute = [{ "insertId": 1}, null]
 
-    it("deve retornar um array com duas posições", async () => {
-      const response = await productModel.getAll();
-      expect(response).to.be.an('array');
-      expect(response.length).to.be.equal(2);
+            sinon.stub(connection, 'execute').resolves(execute);
+
+            const create = await productsModel.create(product);
+
+            expect(product).to.be.a.property('id');
+            expect(product).to.be.a.property('name');
+            expect(product).to.be.a.property('quantity');
+        });
     });
 
-    it("deve retornar um array com as chaves esperadas", async () => {
-      const response = await productModel.getAll();
-      response.forEach((obj) => {
-        expect(obj).to.have.all.keys(['id', 'name', 'quantity']);
-      })
+
+    describe("testa a função de obter todos os produtos", () => {
+        beforeEach(async () => {
+            const response = [
+                [{
+                    id: 1,
+                    name: "product_name",
+                    quantity: 1
+                },
+                {
+                    id: 2,
+                    name: "product_name",
+                    quantity: 2
+                }],
+                []
+            ];
+            sinon.stub(connection, 'execute').resolves(response);
+        });
+
+        afterEach(async () => {
+            connection.execute.restore();
+        });
+
+        it("retorna o array com o comprimento devido", async () => {
+            const response = await productsModel.getAll();
+            expect(response).to.be.an('array');
+            expect(response.length).to.be.equal(2);
+        });
+
+        it("verifica as chaves retornadas da requisição", async () => {
+            const response = await productsModel.getAll();
+            const product2 = response[1];
+            expect(product2).to.have.property("id");
+            expect(product2).to.have.property("name");
+            expect(product2).to.have.property("quantity");
+        });
     });
 
-    it("os objetos retornados devem ser dos tipos esperados", async () => {
-      const response = await productModel.getAll();
-      response.forEach((obj) => {
-        expect(obj.id).to.be.a('number');
-        expect(obj.name).to.be.an('string');
-        expect(obj.quantity).to.be.a('number');
-      })
-    });
-  })
+    describe("Testa a função de obter produto por id", () => {
+        beforeEach(async () => {
+            const response = [{
+                id: 1,
+                name: "product_name",
+                quantity: 10
+            }];
+            sinon.stub(connection, 'execute').resolves(response);
+        });
 
+        afterEach(async () => {
+            connection.execute.restore();
+        });
 
-  describe('função getById', () => {
+        it("Retorna um array com objeto do produto buscado", async () => {
+            const response = await productsModel.getById(1);
+            expect(response).to.be.an('object');
+        });
 
-    before(async () => {
-      const response = [
-        [{
-          "id": 2,
-          "name": "produto B",
-          "quantity": 20
-        }],
-        []
-      ];
-
-      sinon.stub(connection, 'execute').resolves(response);
-    })
-
-    after(async () => {
-      connection.execute.restore();
-    })
-
-    it('deve retornar um objeto', async () => {
-      const response = await productModel.getById(2);
-      expect(response).to.be.an('object')
+        it("verifica chaves do objeto retornado", async () => {
+            const response = await productsModel.getById(1);
+            expect(response).to.have.property("id");
+            expect(response).to.have.property("name");
+            expect(response).to.have.property("quantity");
+        });
     });
 
-    it('o objeto deve ter as chaves esperadas', async () => {
-      const response = await productModel.getById(2);
-      expect(response).be.have.all.keys(['id', 'name', 'quantity']);
+    describe("Testa a função de obter todos os produtos", () => {
+        beforeEach(async () => {
+            const response = [
+                {
+                    id: 1,
+                    name: "product_name",
+                    quantity: 1
+                },
+                {
+                    id: 2,
+                    name: "product_name2",
+                    quantity: 2
+                },
+                {
+                    id: 3,
+                    name: "product_name3",
+                    quantity: 3
+                }
+            ];
+            sinon.stub(connection, 'execute').resolves(response);
+        });
+
+        afterEach(async () => {
+            connection.execute.restore();
+        });
+
+        it ("Retorna um array de objetos", async () => {
+            const response = await productsModel.getAll();
+
+            expect(response).to.be.an('object');
+        });
+
+        it("verifica se os objetos tem as chaves necessarias", async () => {
+            const response = await productsModel.getAll();
+
+            expect(response).to.have.property('id');
+            expect(response).to.have.property('name');
+            expect(response).to.have.property('quantity');
+        });
     });
 
-    it("o objeto retornado deve conter os tipos esperados", async () => {
-      const response = await productModel.getById(2);
-      expect(response.id).to.be.a('number');
-      expect(response.name).to.be.an('string');
-      expect(response.quantity).to.be.a('number');
+    describe("Testa a função de atualizar um produto", () => {
+        beforeEach( async () => {
+            const response = [{ "insertId": 1 }, null];
+            sinon.stub(connection, 'execute').resolves(response);
+        });
+
+        afterEach( async () => {
+            connection.execute.restore();
+        });
+
+        const product = { id: 1, name: "product_name", quantity: 3 };
+
+        it("retorna um objeto com os valores que foram atualizados", async () => {
+            const response = await productsModel.update(product);
+            expect(response).to.be.an('object');
+        });
     });
-  });
+});
 
-  describe('função update', () => {
+describe('Testa a camada model para as vendas', () => {
+    describe("Testa a função de inserir novas vendas", () => {
+        afterEach(async () => {
+            connection.execute.restore();
+        });
 
-    const paramObj = {
-      id: 2,
-      name: "produto B",
-      quantity: 20
-    };
-
-    before(async () => {
-      const response = [
-        [],
-        []
-      ];
-
-      sinon.stub(connection, 'execute').resolves(response);
-    })
-
-    after(async () => {
-      connection.execute.restore();
-    })
-
-    it('deve retornar um objeto', async () => {
-      const response = await productModel.update(paramObj);
-      expect(response).to.be.an('object')
-    })
-
-    it('deve retornar um objeto com os parametros esperados', async () => {
-      const response = await productModel.update(paramObj);
-      expect(response).be.have.all.keys(['id', 'name', 'quantity']);
-    })
-
-    it('o objeto retornado deve conter os tipos esperados', async () => {
-      const response = await productModel.update(paramObj);
-      expect(response.id).to.be.a('number');
-      expect(response.name).to.be.an('string');
-      expect(response.quantity).to.be.a('number');
-    })
-
-    it('deve retornar um objeto identico ao que foi passado como parametro', async () => {
-      const response = await productModel.update(paramObj);
-      expect(response).to.be.deep.equal(paramObj)
-    })
-  })
-})
-
-describe('Testa o arquivo saleModel', () => {
-
-  describe('função getAll', () => {
-
-    before(async () => {
-      const response = [[
-          {
-            saleId: 1,
-            date: "2021-09-09T04:54:29.000Z",
+        const sale = [{
             product_id: 1,
-            quantity: 2
-          },
-          {
-            saleId: 1,
-            date: "2021-09-09T04:54:54.000Z",
-            product_id: 2,
-            quantity: 2
-          }
-        ],
-        []
-      ];
+            product_id: 10
+        }];
 
-      sinon.stub(connection, 'execute').resolves(response);
+        it("Cria novo produto com sucesso", async () => {
+            const execute = [{ "insertId": 1}, null]
+
+            sinon.stub(connection, 'execute').resolves(execute);
+
+            const create = await salesModel.create(sale);
+
+            expect(create).to.be.a('object');
+            expect(create).to.have.a.property('insertId');
+            expect(create.insertId).to.be.a('number');
+        });
+    });
+
+    describe("Testa a função de obter todas as vendas", () => {
+        beforeEach(async () => {
+            const response = [
+                {
+                    saleId: 5,
+                    date: "2022-02-00T00:30:01.000Z",
+                    product_id: 7,
+                    product_id: 7
+                },
+                {
+                    saleId: 6,
+                    date: "2022-02-00T00:30:02.000Z",
+                    product_id: 8,
+                    product_id: 7
+                },
+                {
+                    saleId: 7,
+                    date: "2022-02-00T00:30:03.000Z",
+                    product_id: 9,
+                    product_id: 7
+                }
+            ];
+            sinon.stub(connection, 'execute').resolves(response);
+        });
+
+        afterEach(async () => {
+            connection.execute.restore();
+        });
+
+        it("retorna o array com o comprimento devido", async () => {
+            const response = await salesModel.getAll();
+
+            expect(response).to.be.an('object');
+        });
+
+        it("verifica as chaves retornadas da requisição", async () => {
+            const response = await salesModel.getAll();
+            expect(response).to.have.property("saleId");
+            expect(response).to.have.property("date");
+            expect(response).to.have.property("product_id");
+        });
+    });
+
+    describe("Testa a função de obter venda por id", () => {
+        beforeEach( async () => {
+            const response = [[
+                {
+                    date: "2022-02-00T00:30:00.000Z",
+                    product_id: 2,
+                    quantity: 7
+                }
+            ], null];
+
+            sinon.stub(connection, 'execute').resolves(response);
+        });
+
+        afterEach( async () => {
+            connection.execute.restore();
+        });
+
+        it("testa o retorno de uma venda pelo id passado", async () => {
+            const response = await salesModel.getById(2);
+            expect(response).to.be.an('array');
+            expect(response.length).to.be.equal(1);
+            expect(response[0]).to.be.an('object');
+            expect(response[0]).to.have.property('date');
+            expect(response[0]).to.have.property('product_id');
+            expect(response[0]).to.have.property('quantity');
+        })        
+    });
+
+    describe("Testa a função de atualizar uma venda", () => {
+        beforeEach( async () => {
+            const response = [{
+                saleId: 2,
+                itemUpdated: [
+                    {
+                        product_id: 2,
+                        quantity: 6
+                    }
+                ]
+            }, null];
+
+            sinon.stub(connection, 'execute').resolves(response);
+        });
+
+        afterEach( async () => {
+            connection.execute.restore();
+        });
     })
-
-    after(async () => {
-      connection.execute.restore();
-    })
-
-    it('deve retornar um array', async () => {
-      const response = await saleModel.getAll();
-      expect(response).to.be.an('array');
-    })
-
-    it('o array deve conter apenas objetos', async () => {
-      const response = await saleModel.getAll();
-      response.forEach((el) => {
-        expect(el).to.be.an('object');
-      })
-    })
-
-    it('os objetos devem ter as propriedades esperadas', async () => {
-      const response = await saleModel.getAll();
-      response.forEach((obj) => {
-        expect(obj).to.be.all.keys(['saleId', 'date', 'product_id', 'quantity']);
-      })
-    })
-
-    it('os objetos devem ter as propriedades com os tipos esperados', async () => {
-      const response = await saleModel.getAll();
-      response.forEach((obj) => {
-        expect(obj.saleId).to.be.a('number');
-        expect(obj.date).to.be.an('string');
-        expect(obj.product_id).to.be.a('number');
-        expect(obj.quantity).to.be.a('number');
-      })
-    })
-  })
-
-  describe('função getById', () => {
-
-    before(async () => {
-      const response = [[
-          { 
-            date: "2021-09-09T04:54:29.000Z",
-            product_id: 1,
-            quantity: 2
-          },
-          {
-            date: "2021-09-09T04:54:54.000Z",
-            product_id: 2,
-            quantity: 2
-          }
-        ],
-        []
-      ];
-
-      sinon.stub(connection, 'execute').resolves(response);
-    })
-
-    after(async () => {
-      connection.execute.restore();
-    })
-
-    it('deve retornar um array', async () => {
-      const response = await saleModel.getById(1);
-      expect(response).to.be.an('array');
-    })
-
-    it('deve retornar um array com objetos com as chaves esperadas', async () => {
-      const response = await saleModel.getById(1);
-      response.forEach((obj) => {
-        expect(obj).to.be.all.keys(['date', 'product_id', 'quantity']);
-      })
-    })
-
-    it('deve retornar um array com objetos com as chaves esperadas', async () => {
-      const response = await saleModel.getById(1);
-        response.forEach((obj) => {
-        expect(obj.date).to.be.an('string');
-        expect(obj.product_id).to.be.a('number');
-        expect(obj.quantity).to.be.a('number');
-      })
-    })
-  })
-
-  describe('função createNewSale', () => {
-    before(async () => {
-      const response = [
-          { 
-            insertId: 1,
-          },
-        []
-      ];
-
-      sinon.stub(connection, 'execute').resolves(response);
-    })
-
-    after(async () => {
-      connection.execute.restore();
-    })
-
-  })
-}) 
+});

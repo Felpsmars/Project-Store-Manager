@@ -1,78 +1,41 @@
-const sinon = require('sinon');
-const { expect } = require('chai');
+const sinon = require("sinon");
+const { expect } = require("chai");
 
-const productModel = require('../../models/productsModel');
-const saleModel = require('../../models/salesModel');
+const productsModel = require('../../models/productsModel');
+const productsService = require('../../services/productService');
+const salesService = require('../../services/salesService');
 
-const productService = require('../../services/productService');
-const saleService = require('../../services/salesService');
+ // https://github.com/tryber/sd-014-b-store-manager/pull/62
+ 
+const allProducts = [
+  {
+    id: 1,
+    name: "product_name",
+    quantity: 20
+  },
+  {
+    id: 2,
+    name: "Cadeira Gamer",
+    quantity: 15
+  }
+];
 
-describe('Testa o arquivo productService', () => {
-
-  describe('função getAll', () => {
-
+describe('Testa a camada services', () => {
+  describe('Retorno de um produto por id', async () => {
     before(async () => {
-      const response =   [
-        {
-          id: 1,
-          name: "produto A",
-          quantity: 10
-        },
-        {
-          id: 2,
-          name: "produto B",
-          quantity: 20
-        }
-      ];
-      sinon.stub(productModel, 'getAll').resolves(response);
-    })
+      const mockedProduct = allProducts[1];
+      sinon.stub(productsModel, 'getById').resolves(mockedProduct);
+      sinon.stub(productsModel, 'getAll').resolves(allProducts);
+    });
 
     after(async () => {
-      productModel.getAll.restore();
-    })
+      productsModel.getById.restore();
+      productsModel.getAll.restore();
+    });
 
-    it('deve retornar um array', async () => {
-      const response = await productService.listProductService();
-      expect(response).to.be.an('array');
-    })
-
-    it('o array deve conter apenas objetos', async () => {
-      const response = await productService.listProductService();
-      response.forEach((el) => {
-        expect(el).to.be.an('object');
-      })
-    })
-
-    it('os objetos devem ter as propriedades esperadas', async () => {
-      const response = await productService.listProductService();
-      response.forEach((el) => {
-        expect(el).to.have.all.keys(['id', 'name', 'quantity']);
-      })
-    })
-
-    it('os objetos devem ter as propriedades com os tipos esperados', async () => {
-      const response = await productService.listProductService();
-      response.forEach((el) => {
-        expect(el.id).to.be.an('number');
-        expect(el.name).to.be.an('string');
-        expect(el.quantity).to.be.an('number');
-      })
-    })
+    it('retorna o produto esperado', async () => {
+      const product = await productsService.getByIdService(2);
+      expect(product).to.be.deep.equal(allProducts[1]);
+    });
   });
-
-  describe('função getById', () => {
-
-    before(async () => {
-      const response = {
-          id: 1,
-          name: "produto A",
-          quantity: 10
-        };
-      sinon.stub(productModel, 'getById').resolves(response);
-    })
-
-    after(async () => {
-      productModel.getById.restore();
-    })
-
-}) })
+}); 
