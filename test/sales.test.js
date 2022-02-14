@@ -391,7 +391,6 @@ describe('Sales', () => {
           const { body } = responseOne;
           const responseAll = JSON.parse(body);
           hasSaleField(responseAll, ["date", "product_id", "quantity"]);
-
           const productIdFirstProduct = responseAll[0].product_id;
           const productIdSecondProduct = responseAll[1].product_id;
           expect(responseAll.length).toBe(2);

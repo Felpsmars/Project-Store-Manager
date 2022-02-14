@@ -158,7 +158,7 @@ describe("Testa a camada model para os produtos", () => {
 
 describe('Testa a camada model para as vendas', () => {
     describe("Testa a função de inserir novas vendas", () => {
-        afterEach(async () => {
+        after(async () => {
             connection.execute.restore();
         });
 

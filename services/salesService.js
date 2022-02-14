@@ -23,7 +23,6 @@ const createSale = async (sale) => {
   if (validQuantity.message) return validQuantity;
 
   const newSale = await create(sale);
-
   const response = {
     id: newSale.insertId,
     itemsSold: sale,
