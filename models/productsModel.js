@@ -3,6 +3,7 @@ const connection = require('./connection');
 const getAll = async () => {
   const [rows] = await connection.execute('SELECT * FROM StoreManager.products');
   console.log(rows);
+  console.log(rows[0]);
   return rows;
 };
 
@@ -28,6 +29,8 @@ const create = async (name, quantity) => {
     'INSERT INTO StoreManager.products (name, quantity) VALUES (?, ?)',
     [name, quantity],
   );
+  console.log(rows);
+  console.log(rows[0]);
   return {
     id: rows.insertId,
     name,
@@ -49,9 +52,10 @@ const update = async ({ id, name, quantity }) => {
 
 const remove = async (id) => {
   const product = await getById(id);
-  if (!product) throw new Error();
+  console.log('remove', product);
+  if (product.length === 0) throw new Error();
   await connection.execute('DELETE FROM StoreManager.products WHERE id = ?', [id]);
-  return product;
+  return product[0];
 };
 
 module.exports = {

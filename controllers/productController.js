@@ -34,14 +34,15 @@ const getByIdController = async (req, res) => {
 };
 
 const updateProductController = async (req, res) => {
-        try {
-        const { id } = req.params;
-        const { name, quantity } = req.body;
+    try {
+    const { id } = req.params;
+    const { name, quantity } = req.body;
+    
+    const dataUpdated = await updateProductService(id, name, quantity);
 
-        const dataUpdated = await updateProductService(id, name, quantity);
-        return res.status(200).json(dataUpdated);    
+    return res.status(200).json(dataUpdated);    
     } catch (error) {
-   return res.status(404).json({ message: 'Product not found' });
+    return res.status(404).json({ message: 'Product not found' });
     }
     };
 

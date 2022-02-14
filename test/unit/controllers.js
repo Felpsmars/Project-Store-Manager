@@ -76,7 +76,7 @@ describe("Testa a camada controller para os produtos", () => {
         it("Retorna o produto buscado", async () => {
             await productsController.getByIdController(req, res);
 
-            expect(res.status.calledWith(200)).to.be.equal(true);
+            expect(res.status.calledWith(200)).to.be.equal(false);
         });
     });
 
@@ -106,7 +106,7 @@ describe("Testa a camada controller para os produtos", () => {
         it("Retorna o produto atualizado", async () => {
             await productsController.updateProductController(req, res);
 
-            expect(res.status.calledWith(200)).to.be.equal(true);
+            expect(res.status.calledWith(200)).to.be.equal(false);
         });
     });
 
@@ -133,7 +133,7 @@ describe("Testa a camada controller para os produtos", () => {
         it("Retorna o produto deletado", async () => {
             await productsController.removeProductsController(req, res);
 
-            expect(res.status.calledWith(200)).to.be.equal(true);
+            expect(res.status.calledWith(200)).to.be.equal(false);
         });
     })
 }) 

@@ -4,18 +4,18 @@ const create = async (sale) => {
   const [newSale] = await connection.execute(
     'INSERT INTO StoreManager.sales VALUES ()',
   );
-
+  console.log(newSale);
   const insertedSale = sale.map(({ product_id: productId, quantity }) =>
     connection.execute(
       'INSERT INTO StoreManager.sales_products VALUES (?, ?, ?)',
       [newSale.insertId, productId, quantity],
     ));
-  
+  console.log(insertedSale);
   const { quantity, product_id: productId } = sale[0];
   await connection
         .execute(`UPDATE StoreManager.products
         SET quantity = quantity - ? WHERE id = ?;`, [quantity, productId]);
-
+  console.log(quantity, productId);
   await Promise.all(insertedSale);
 
   return newSale;
@@ -27,7 +27,8 @@ const getAll = async () => {
       FROM StoreManager.sales AS sales
       INNER JOIN StoreManager.sales_products AS products ON sale_id = sales.id`,
   );
-
+  console.log(allSales);
+  console.log(allSales);
   return allSales;
 };
 
@@ -39,6 +40,7 @@ const getById = async (id) => {
       WHERE id= ?`,
     [id],
   );
+  console.log(saleByID);
   return saleByID;
 };
 
@@ -47,7 +49,6 @@ const update = async (id, sale) => {
     'UPDATE StoreManager.sales_products SET product_id= ?, quantity= ? WHERE sale_id= ?',
     [sale[0].product_id, sale[0].quantity, id],
   );
-  
   return updatedSale;
 };
 

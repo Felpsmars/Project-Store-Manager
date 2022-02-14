@@ -24,6 +24,7 @@ describe("Testa a camada model para os produtos", () => {
 
             const create = await productsModel.create(product);
 
+            expect(create).to.be.an('object');
             expect(product).to.be.a.property('id');
             expect(product).to.be.a.property('name');
             expect(product).to.be.a.property('quantity');

@@ -26,16 +26,16 @@ const listProductService = async () => {
 const getByIdService = async (id) => {
     const productById = await getById(id);
     
-    if (!productById) throw new Error();
+    if (productById.length === 0) throw new Error();
 
     return productById[0];
 };
 
 const updateProductService = async (id, name, quantity) => {
-    const updatedProduct = await update({ id, name, quantity });
     const productById = await getById(id);
-  
-    if (!productById) throw new Error();
+    if (productById.length === 0) throw new Error();
+    
+    const updatedProduct = await update({ id, name, quantity });
     if (!updatedProduct) throw new Error();
 
     return updatedProduct;
