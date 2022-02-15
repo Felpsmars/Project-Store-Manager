@@ -44,14 +44,29 @@ const createSale = async (sale) => {
 
 const getAllSales = async () => {
   const allSales = await getAll();
-
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
   return allSales;
 };
 
 const getSaleById = async (id) => {
   const allSales = await getAll();
   const getSale = findsaleById(id, allSales);
-
+  
   if (getSale.message) return getSale;
 
   const saleById = await getById(id);
