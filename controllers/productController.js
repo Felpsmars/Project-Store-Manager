@@ -9,7 +9,6 @@ const {
 const createProductController = async (req, res) => {
         try {
         const { name, quantity } = req.body;
-
         const newProduct = await createProductService(name, quantity);
 
         return res.status(201).json(newProduct);
@@ -20,6 +19,7 @@ const createProductController = async (req, res) => {
 
 const listAllController = async (_req, res) => {
         const allProducts = await listProductService();
+
         return res.status(200).json(allProducts);
     };
 
@@ -37,7 +37,16 @@ const updateProductController = async (req, res) => {
     try {
     const { id } = req.params;
     const { name, quantity } = req.body;
-    
+    console.log(name, quantity);
+    console.log(id);
+    console.log(id);
+    console.log(id);
+    console.log(id);
+    console.log(id);
+    console.log(id);
+    console.log(id);
+    console.log(id);
+    console.log(id);
     const dataUpdated = await updateProductService(id, name, quantity);
 
     return res.status(200).json(dataUpdated);    
@@ -49,6 +58,17 @@ const updateProductController = async (req, res) => {
 const removeProductsController = async (req, res) => {
         try {
             const { id } = req.params;
+            console.log(id);
+            console.log(id);
+            console.log(id);
+            console.log(id);
+            console.log(id);
+            console.log(id);
+            console.log(id);
+            console.log(id);
+            console.log(id);
+            console.log(id);
+            console.log(id);
            const deleted = await removeProductService(id);
            return res.status(200).json(deleted);
         } catch (error) {

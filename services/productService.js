@@ -17,13 +17,23 @@ const createProductService = async (name, quantity) => {
 
 const listProductService = async () => {
     const allProducts = await getAll();
-    console.log('allProducts', allProducts);
     return allProducts;
 };
 
 const getByIdService = async (id) => {
     const productById = await getById(id);
-
+    console.log(productById);
+    console.log(productById);
+    console.log(productById);
+    console.log(productById);
+    console.log(productById);
+    console.log(productById);
+    console.log(productById);
+    console.log(productById);
+    console.log(productById);
+    console.log(productById);
+    console.log(productById);
+    console.log(productById);
     if (productById.length === 0) throw new Error();
     
     return productById[0];
@@ -32,7 +42,6 @@ const getByIdService = async (id) => {
 const updateProductService = async (id, name, quantity) => {
     const productById = await getById(id);
     if (productById.length === 0) throw new Error();
-
     const updatedProduct = await update({ id, name, quantity });
     if (!updatedProduct) throw new Error();
 

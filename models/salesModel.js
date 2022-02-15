@@ -36,6 +36,11 @@ const getAll = async () => {
     console.log(allSales);
     console.log(allSales);
     console.log(allSales);
+    console.log(allSales);
+    console.log(allSales);
+    console.log(allSales);
+    console.log(allSales);
+    console.log(allSales);
   return allSales;
 };
 
@@ -47,6 +52,16 @@ const getById = async (id) => {
       WHERE id= ?`,
     [id],
   );
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
   return saleByID;
 };
 
@@ -66,7 +81,6 @@ const remove = async (id) => {
   const { quantity, product_id: productId } = sale[0];
   await connection.execute(`UPDATE StoreManager.products SET 
   quantity = quantity + ? WHERE id = ?;`, [quantity, productId]);
-
   return sale;
 };
 
