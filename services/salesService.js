@@ -12,8 +12,6 @@ const {
   findsaleById,
 } = require('../middlewares/sales');
 
-const productsService = require('./productService');
-
 // tive ajuda do meu colega gabriel sampaio 14b e rafael perches 14b para montar as funções neste arquivo
 
 const createSale = async (sale) => {
