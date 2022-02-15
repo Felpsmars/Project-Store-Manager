@@ -12,14 +12,14 @@ describe("Testa a camada de service para os produtos", () => {
         beforeEach(async () => {
             const response = [
                 {
-                    "id": 1,
-                    "name": "video game",
-                    "quantity": 4
+                    id: 1,
+                    name: "product_name",
+                    quantity: 4
                 },
                 {
-                    "id": 2,
-                    "name": "geladeira frost free",
-                    "quantity": 4
+                    id: 2,
+                    name: "product_name2",
+                    quantity: 4
                 }
             ];
 
@@ -40,9 +40,9 @@ describe("Testa a camada de service para os produtos", () => {
     describe("Testa a função de retornar produto pelo id", () => {
         beforeEach(async () => {
             const response = {
-                "id": 1,
-                "name": "violao do elvis",
-                "quantity": 4
+                id: 1,
+                name: "product_name",
+                quantity: 4
             };
 
             sinon.stub(productsModel, "getById").resolves(response);
@@ -66,16 +66,16 @@ describe("Testa a camada de service para vendas", () => {
         beforeEach(async () => {
             const response =   [
                 {
-                    "saleId": 1,
-                    "date": "2021-09-09T04:54:29.000Z",
-                    "product_id": 1,
-                    "quantity": 2
+                    saleId: 1,
+                    date: "2021-09-09T04:54:29.000Z",
+                    product_id: 1,
+                    quantity: 2
                 },
                 {
-                    "saleId": 1,
-                    "date": "2021-09-09T04:54:54.000Z",
-                    "product_id": 2,
-                    "quantity": 2
+                    saleId: 1,
+                    date: "2021-09-09T04:54:54.000Z",
+                    product_id: 2,
+                    quantity: 2
                 }
             ];
 

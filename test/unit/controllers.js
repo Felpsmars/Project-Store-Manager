@@ -6,17 +6,17 @@ const productsController = require('../../controllers/productController');
 
 describe("Testa a camada controller para os produtos", () => {
     describe("Testa a criação de novo produto com sucesso", () => {
-        const response = {};
-        const request = {};
+        const res = {};
+        const req = {};
 
         beforeEach(async () => {
-            request.body = {
-                "name": "guitarra gibson",
-                "quantity": 10
+            req.body = {
+                name: "product_name",
+                quantity: 10
             };
 
-            response.status = sinon.stub().returns(response);
-            response.json = sinon.stub().returns();
+            res.status = sinon.stub().returns(res);
+            res.json = sinon.stub().returns();
 
             sinon.stub(productsService, 'createProductService').resolves(true);
         });
@@ -26,36 +26,36 @@ describe("Testa a camada controller para os produtos", () => {
         });
 
         it("retorna o status 201 confirmando a ciração do produto", async () => {
-            await productsController.createProductController(request, response);
+            await productsController.createProductController(req, res);
 
-            expect(response.status.calledWith(201)).to.be.equal(false);
+            expect(res.status.calledWith(201)).to.be.equal(false);
         });
     });
 
     describe("Testa a função de retornar todos os produtos", () => {
-        const response = {};
-        const request = {};
+        const res = {};
+        const req = {};
         const allProducts = [
             {
-                "id": 1,
-                "name": "filme a escola do rock",
-                "quantity": 4
+                id: 1,
+                name: "product_name",
+                quantity: 4
             },
             {
-                "id": 2,
-                "name": "home theater sony",
-                "quantity": 4
+                id: 2,
+                name: "product_name2",
+                quantity: 4
             },
             {
-                "id": 3,
-                "name": "bola de basquete",
-                "quantity": 4
+                id: 3,
+                name: "product_name3",
+                quantity: 4
             }
         ];
 
         beforeEach(async () => {
-            response.status = sinon.stub().returns(response);
-            response.json = sinon.stub().returns();
+            res.status = sinon.stub().returns(res);
+            res.json = sinon.stub().returns();
             sinon.stub(productsService, 'listProductService').resolves(true);
         });
 
@@ -64,28 +64,28 @@ describe("Testa a camada controller para os produtos", () => {
         });
 
         it("retorna um array com todos os produtos cadastrados", async () => {
-            await productsController.listAllController(request, response);
+            await productsController.listAllController(req, res);
 
-            expect(response.status.calledWith(200)).to.be.equal(true);
+            expect(res.status.calledWith(200)).to.be.equal(true);
         });
     });
 
     describe("Testa a função de atualizar um novo produto", () => {
-        const response = {};
-        const request = {};
+        const res = {};
+        const req = {};
         const product = {
-            "name": "viagem para um vulcão",
-            "quantity": 4
+            name: "product_name",
+            quantity: 4
         };
 
         beforeEach(async () => {
-            request.body = {
-                "name": "viagem para um vulcão",
-                "quantity": 4
+            req.body = {
+                name: "product_name",
+                quantity: 4
             };
-            request.params = sinon.stub().returns({ id: 1 });
-            response.status = sinon.stub().returns(response);
-            response.json = sinon.stub().returns();
+            req.params = sinon.stub().returns({ id: 1 });
+            res.status = sinon.stub().returns(res);
+            res.json = sinon.stub().returns();
             sinon.stub(productsService, 'updateProductService').resolves(product);
         });
 
@@ -94,25 +94,25 @@ describe("Testa a camada controller para os produtos", () => {
         });
 
         it("Retorna o produto atualizado", async () => {
-            await productsController.updateProductController(request, response);
+            await productsController.updateProductController(req, res);
 
-            expect(response.status.calledWith(200)).to.be.equal(false);
+            expect(res.status.calledWith(200)).to.be.equal(false);
         });
     });
 
     describe("Testa a função de deletar um produto", () => {
-        const response = {};
-        const request = {};
+        const res = {};
+        const req = {};
         const product = {
-            "id": 2,
-            "name": "xablau ijre09wjr",
-            "quantity": 4
+            id: 2,
+            name: "product_name",
+            quantity: 4
         };
 
         beforeEach(async () => {
-            request.params = sinon.stub().returns({ id: 2 });
-            response.status = sinon.stub().returns(response);
-            response.json = sinon.stub().returns();
+            req.params = sinon.stub().returns({ id: 2 });
+            res.status = sinon.stub().returns(res);
+            res.json = sinon.stub().returns();
             sinon.stub(productsService, 'removeProductService').resolves(product);
         });
 
@@ -121,9 +121,9 @@ describe("Testa a camada controller para os produtos", () => {
         });
 
         it("Retorna o produto deletado", async () => {
-            await productsController.removeProductsController(request, response);
+            await productsController.removeProductsController(req, res);
 
-            expect(response.status.calledWith(200)).to.be.equal(false);
+            expect(res.status.calledWith(200)).to.be.equal(false);
         });
     })
 }) 

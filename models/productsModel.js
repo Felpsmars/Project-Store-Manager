@@ -2,6 +2,12 @@ const connection = require('./connection');
 
 const getAll = async () => {
   const [rows] = await connection.execute('SELECT * FROM StoreManager.products');
+  console.log(rows);
+  console.log(rows);
+  console.log(rows);
+  console.log(rows);
+  console.log(rows);
+  console.log(rows);
   return rows;
 };
 
@@ -38,6 +44,7 @@ const update = async ({ id, name, quantity }) => {
     'UPDATE StoreManager.products SET name = ?, quantity = ? WHERE id = ?',
     [name, quantity, id],
   );
+
   return {
     id,
     name,
@@ -47,7 +54,15 @@ const update = async ({ id, name, quantity }) => {
 
 const remove = async (id) => {
   const product = await getById(id);
+
+  console.log(product);
+  console.log(product);
+  console.log(product);
+  console.log(product);
+  console.log(product);
+  console.log(product);
   if (product.length === 0) throw new Error();
+
   await connection.execute('DELETE FROM StoreManager.products WHERE id = ?', [id]);
   return product[0];
 };
