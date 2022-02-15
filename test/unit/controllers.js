@@ -5,43 +5,6 @@ const productsService = require('../../services/productService');
 const productsController = require('../../controllers/productController');
 
 describe("Testa a camada controller para os produtos", () => {
-    describe("Testa a função de retornar todos os produtos", () => {
-        const res = {};
-        const req = {};
-        const allProducts = [
-            {
-                id: 1,
-                name: "product_name",
-                quantity: 4
-            },
-            {
-                id: 2,
-                name: "product_name2",
-                quantity: 4
-            },
-            {
-                id: 3,
-                name: "product_name3",
-                quantity: 4
-            }
-        ];
-
-        beforeEach(async () => {
-            res.status = sinon.stub().returns(res);
-            res.json = sinon.stub().returns();
-            sinon.stub(productsService, 'listProductService').resolves(true);
-        });
-
-        afterEach(async () => {
-            productsService.listProductService.restore();
-        });
-
-        it("retorna um array com todos os produtos cadastrados", async () => {
-            await productsController.listAllController(req, res);
-
-            expect(res.status.calledWith(200)).to.be.equal(true);
-        });
-    });
 
     describe("Testa a função de atualizar um novo produto", () => {
         const res = {};
