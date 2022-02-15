@@ -4,13 +4,17 @@ const create = async (sale) => {
   const [newSale] = await connection.execute(
     'INSERT INTO StoreManager.sales VALUES ()',
   );
+  console.log(newSale);
+  console.log(newSale);
   const insertedSale = await sale.map(({ product_id: productId, quantity }) =>
-    connection.execute(
-      'INSERT INTO StoreManager.sales_products VALUES (?, ?, ?)',
-      [newSale.insertId, productId, quantity],
+  connection.execute(
+    'INSERT INTO StoreManager.sales_products VALUES (?, ?, ?)',
+    [newSale.insertId, productId, quantity],
     ));
-
-  const { quantity, product_id: productId } = sale[0];
+    
+    console.log(insertedSale);
+    const { quantity, product_id: productId } = sale[0];
+    console.log(quantity, productId);
   await connection
         .execute(`UPDATE StoreManager.products
         SET quantity = quantity - ? WHERE id = ?;`, [quantity, productId]);
@@ -25,7 +29,13 @@ const getAll = async () => {
       FROM StoreManager.sales AS sales
       INNER JOIN StoreManager.sales_products AS products ON sale_id = sales.id`,
   );
- 
+    console.log(allSales);
+    console.log(allSales);
+    console.log(allSales);
+    console.log(allSales);
+    console.log(allSales);
+    console.log(allSales);
+    console.log(allSales);
   return allSales;
 };
 
@@ -37,7 +47,6 @@ const getById = async (id) => {
       WHERE id= ?`,
     [id],
   );
- 
   return saleByID;
 };
 
@@ -54,7 +63,6 @@ const remove = async (id) => {
   const [execute] = await connection
   .execute('DELETE FROM StoreManager.sales_products WHERE sale_id = ?', [id]);
   if (execute.affectedRows === 0) throw new Error(); // tive ajuda do matheus pereira https://github.com/tryber/sd-014-b-store-manager/pull/62/commits/8e1ab949f2f368c21e665cb55173704bd82f5558
-  
   const { quantity, product_id: productId } = sale[0];
   await connection.execute(`UPDATE StoreManager.products SET 
   quantity = quantity + ? WHERE id = ?;`, [quantity, productId]);
