@@ -31,6 +31,12 @@ const getAll = async () => {
   );
   console.log(allSales);
   console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
+  console.log(allSales);
   return allSales;
 };
 
@@ -42,6 +48,14 @@ const getById = async (id) => {
       WHERE id= ?`,
     [id],
   );
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
+  console.log(saleByID);
   console.log(saleByID);
   return saleByID;
 };
