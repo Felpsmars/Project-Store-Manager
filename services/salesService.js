@@ -17,7 +17,7 @@ const productsService = require('./productService');
 // tive ajuda do meu colega gabriel sampaio 14b e rafael perches 14b para montar as funções neste arquivo
 
 const createSale = async (sale) => {
-  const isValidSales = sale.map(async (sales) => {
+  /* const isValidSales = sale.map(async (sales) => {
     const { quantity } = sales;
 
       const product = await productsService.getByIdService(sales.product_id);
@@ -26,20 +26,20 @@ const createSale = async (sale) => {
       throw new Error({ code: 422, message: 'Such amount is not permitted to sell' });
     }
     return sales;
-  });
+  }); */
   
-  const validProduct = isvalidateProducts(isValidSales);
-  const validQuantity = isvalidateQuantity(isValidSales);
+  const validProduct = isvalidateProducts(sale);
+  const validQuantity = isvalidateQuantity(sale);
 
   if (validProduct.message) return validProduct;
 
   if (validQuantity.message) return validQuantity;
 
-  const newSale = await create(isValidSales);
+  const newSale = await create(sale);
   
   const response = {
     id: newSale.insertId,
-    itemsSold: isValidSales,
+    itemsSold: sale,
   };
 
   return response;
@@ -58,7 +58,6 @@ const getSaleById = async (id) => {
   if (getSale.message) return getSale;
 
   const saleById = await getById(id);
-
   return saleById;
 };
 
