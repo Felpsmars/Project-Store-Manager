@@ -9,35 +9,6 @@ const connection = require('../../models/connection');
 const { afterEach } = require('mocha');
 
 describe("Testa a camada de service para os produtos", () => {
-    describe("Testa a função de retornar todos os produtos", () => {
-        beforeEach(async () => {
-            const response = [
-                {
-                    id: 1,
-                    name: "product_name",
-                    quantity: 4
-                },
-                {
-                    id: 2,
-                    name: "product_name2",
-                    quantity: 4
-                }
-            ];
-
-            sinon.stub(productsModel, 'getAll').resolves(response);
-        });
-
-        afterEach(async () => {
-            productsModel.getAll.restore();
-        });
-
-        it("retorna um array com os produtos cadastrados", async () => {
-            const response = await productsService.listProductService();
-
-            expect(response).to.be.an('array');
-        })
-    });
-
     describe("Testa a função de retornar produto pelo id", () => {
         beforeEach(async () => {
             const response = {

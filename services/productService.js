@@ -7,7 +7,7 @@ const { getAll,
 
 const createProductService = async (name, quantity) => { 
     const allProducts = await getAll();
-    const alreadyExist = allProducts.some((product) => product.name === name);
+    const alreadyExist = await allProducts.some((product) => product.name === name);
     if (alreadyExist) throw new Error();
 
     const newProduct = create(name, quantity);
