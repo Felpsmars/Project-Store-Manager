@@ -61,7 +61,6 @@ describe("Testa a camada controller para os produtos", () => {
             res.json = sinon.stub().returns();
             sinon.stub(productsService, 'updateProductService').resolves(product);
         });
-
         afterEach(async () => {
             productsService.updateProductService.restore();
         });
