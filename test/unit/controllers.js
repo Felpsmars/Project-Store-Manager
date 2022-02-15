@@ -13,7 +13,6 @@ describe("Testa a camada controller para os produtos", () => {
             name: "product_name",
             quantity: 4
         };
-
         beforeEach(async () => {
             req.body = {
                 name: "product_name",
