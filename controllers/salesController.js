@@ -10,9 +10,8 @@ const {
 
 const createProductSale = async (req, res) => {
   const sale = req.body;
-
   const createdSale = await createSale(sale);
-
+  
   if (createdSale.message) {
   return res.status(createdSale.code).json({ message: createdSale.message });
   }

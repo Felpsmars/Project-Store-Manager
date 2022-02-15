@@ -12,20 +12,34 @@ const {
   findsaleById,
 } = require('../middlewares/sales');
 
+const productsService = require('./productService');
+
 // tive ajuda do meu colega gabriel sampaio 14b e rafael perches 14b para montar as funções neste arquivo
 
 const createSale = async (sale) => {
-  const validProduct = isvalidateProducts(sale);
-  const validQuantity = isvalidateQuantity(sale);
+  const isValidSales = sale.map(async (sales) => {
+    const { quantity } = sales;
+
+      const product = await productsService.getByIdService(sales.product_id);
+
+    if (product && quantity > product.quantity) {
+      throw new Error({ code: 422, message: 'Such amount is not permitted to sell' });
+    }
+    return sales;
+  });
+  
+  const validProduct = isvalidateProducts(isValidSales);
+  const validQuantity = isvalidateQuantity(isValidSales);
 
   if (validProduct.message) return validProduct;
 
   if (validQuantity.message) return validQuantity;
 
-  const newSale = await create(sale);
+  const newSale = await create(isValidSales);
+  
   const response = {
     id: newSale.insertId,
-    itemsSold: sale,
+    itemsSold: isValidSales,
   };
 
   return response;

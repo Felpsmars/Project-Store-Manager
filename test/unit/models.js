@@ -68,7 +68,7 @@ describe("Testa a camada model para os produtos", () => {
             expect(product2).to.have.property("quantity");
         });
     });
-
+    
     describe("Testa a função de obter produto por id", () => {
         beforeEach(async () => {
             const response = [{
@@ -158,7 +158,7 @@ describe("Testa a camada model para os produtos", () => {
 
 describe('Testa a camada model para as vendas', () => {
     describe("Testa a função de inserir novas vendas", () => {
-        after(async () => {
+        afterEach(async () => {
             connection.execute.restore();
         });
 

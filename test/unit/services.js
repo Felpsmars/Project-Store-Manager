@@ -6,6 +6,7 @@ const productsModel = require('../../models/productsModel');
 const salesModel = require('../../models/salesModel');
 const salesService = require('../../services/salesService');
 const connection = require('../../models/connection');
+const { afterEach } = require('mocha');
 
 describe("Testa a camada de service para os produtos", () => {
     describe("Testa a função de retornar todos os produtos", () => {
@@ -48,7 +49,7 @@ describe("Testa a camada de service para os produtos", () => {
             sinon.stub(productsModel, "getById").resolves(response);
         });
 
-        afterEach(async () => {
+        after(async () => {
             productsModel.getById.restore();
         });
 

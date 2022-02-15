@@ -4,22 +4,18 @@ const create = async (sale) => {
   const [newSale] = await connection.execute(
     'INSERT INTO StoreManager.sales VALUES ()',
   );
-  console.log(newSale);
-
   const insertedSale = await sale.map(({ product_id: productId, quantity }) =>
     connection.execute(
       'INSERT INTO StoreManager.sales_products VALUES (?, ?, ?)',
       [newSale.insertId, productId, quantity],
     ));
+
   const { quantity, product_id: productId } = sale[0];
   await connection
         .execute(`UPDATE StoreManager.products
         SET quantity = quantity - ? WHERE id = ?;`, [quantity, productId]);
   await Promise.all(insertedSale);
-
-  console.log(quantity, productId);
-  console.log(quantity, productId);
-  console.log(quantity, productId);
+  
   return newSale;
 };
 
@@ -29,18 +25,7 @@ const getAll = async () => {
       FROM StoreManager.sales AS sales
       INNER JOIN StoreManager.sales_products AS products ON sale_id = sales.id`,
   );
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
+ 
   return allSales;
 };
 
@@ -52,16 +37,7 @@ const getById = async (id) => {
       WHERE id= ?`,
     [id],
   );
-  console.log(saleByID);
-  console.log(saleByID);
-  console.log(saleByID);
-  console.log(saleByID);
-  console.log(saleByID);
-  console.log(saleByID);
-  console.log(saleByID);
-  console.log(saleByID);
-  console.log(saleByID);
-  console.log(saleByID);
+ 
   return saleByID;
 };
 
