@@ -37,16 +37,6 @@ const updateProductController = async (req, res) => {
     try {
     const { id } = req.params;
     const { name, quantity } = req.body;
-    console.log(name, quantity);
-    console.log(id);
-    console.log(id);
-    console.log(id);
-    console.log(id);
-    console.log(id);
-    console.log(id);
-    console.log(id);
-    console.log(id);
-    console.log(id);
     const dataUpdated = await updateProductService(id, name, quantity);
 
     return res.status(200).json(dataUpdated);    
@@ -58,17 +48,6 @@ const updateProductController = async (req, res) => {
 const removeProductsController = async (req, res) => {
         try {
             const { id } = req.params;
-            console.log(id);
-            console.log(id);
-            console.log(id);
-            console.log(id);
-            console.log(id);
-            console.log(id);
-            console.log(id);
-            console.log(id);
-            console.log(id);
-            console.log(id);
-            console.log(id);
            const deleted = await removeProductService(id);
            return res.status(200).json(deleted);
         } catch (error) {

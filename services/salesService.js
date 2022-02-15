@@ -44,22 +44,6 @@ const createSale = async (sale) => {
 
 const getAllSales = async () => {
   const allSales = await getAll();
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
-  console.log(allSales);
   return allSales;
 };
 
