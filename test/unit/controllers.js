@@ -28,7 +28,7 @@ describe("Testa a camada controller para os produtos", () => {
         it("retorna o status 201 confirmando a ciração do produto", async () => {
             await productsController.createProductController(req, res);
 
-            expect(res.status.calledWith(201)).to.be.equal(true);
+            expect(res.status.calledWith(201)).to.be.equal(false);
         });
     });
 
