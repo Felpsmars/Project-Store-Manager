@@ -1,15 +1,12 @@
-- [Habilidades](#habilidades)
-- [Entregáveis](#entregáveis)
-  - [O que deverá ser desenvolvido](#o-que-deverá-ser-desenvolvido)
-  - [Desenvolvimento](#desenvolvimento)
-  - [Data de entrega](#data-de-entrega)
-- [Instruções para entregar seu projeto](#instruções-para-entregar-seu-projeto)
-  - [Antes de começar a desenvolver](#antes-de-começar-a-desenvolver)
-  - [Durante o desenvolvimento](#durante-o-desenvolvimento)
-- [Como desenvolver](#como-desenvolver)
-  - [Padrões e conexões](#padrões-e-conexões)
-  - [Conexão com o Banco](#conexão-com-o-banco)
-  - [Tabelas](#tabelas)
-- [Requisitos do projeto](#requisitos-do-projeto)
-  - [Linter](#linter)
-  - [Lista de requisitos](#lista-de-requisitos)
+# Habilidades
+
+Nesse projeto, você será capaz de:
+
+- Entender o funcionamento da camada de Model;
+- Delegar responsabilidades específicas para essa camada;
+- Conectar sua aplicação com diferentes bancos de dados;
+- Estruturar uma aplicação em camadas;
+- Delegar responsabilidades específicas para cada parte do seu app;
+- Melhorar manutenibilidade e reusabilidade do seu código;
+- Entender e aplicar os padrões REST;
+- Escrever assinaturas para APIs intuitivas e facilmente entendíveis.
